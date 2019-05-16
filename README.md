@@ -16,11 +16,11 @@ Para hacer esto:
 
 	En el nombre: **001And_G14V.1.fq.gz** no es necesario todo lo que va después del punto. Además, falta otra columna con el nombre (o código de los sitios). Para modificar todo esto:
  
-[Codigo grep](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/GrepTW.jpg)
+![Codigo grep](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/GrepTW.jpg)
 
 De esta forma, se genera un archivo de texto con el formato correcto:
 
-[PopMap file](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/ScreenShot_PopMap.jpg)
+![PopMap file](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/ScreenShot_PopMap.jpg)
 
 NOTA: ¡¡¡Cuidar que los mismos sitios tengan el mismo nombre!!!
 > Algunos bichos dicen "Purg" y otros "Pur"
