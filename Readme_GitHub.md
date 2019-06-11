@@ -11,10 +11,10 @@ Ejemplos:
 __Para subir imágenes a GitHub__
 
 >git add "archivo"  
->git commit  
+>git commit -m 'mensaje'  
 >git push origin master
 
-Esto hace que el archivo se suba al git. Se debe copiar el URL de la ubicación de la imagen en git y esta direccion copiar en el codigo de git. Ejemplo:
+Esto hace que el archivo se suba al git. Se debe copiar el URL de la ubicación de la imagen en git y esta direccion copiar en el codigo de git (eg. en el README.md). Ejemplo:
 
 `![Codigo grep](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/GrepTW.jpg)`
 
