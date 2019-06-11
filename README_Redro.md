@@ -12,19 +12,19 @@ Ilumina generó ocho pools que fueron entregados en archivos comprimidos formato
 
 La calidad de cada lectura fue revisada con la ayuda del software FastQ, el cual descomprime los archivos **.gzip** y analiza algunos parámetros de calidad del secuenciamiento... en construcción..!
 
-La finalidad del demultiplexing es la de entregar una identidad a cada secuencia de cada pool. Es decir, identificar las lecturas de cada individuo mediante la asociación de los adaptadores de cada pool con la información codificada de cada muestra secuenciada (códigos durante la extracción de ADN). En nuestro caso, trabajaremos solamente con la primera lectura (lectura simple) y también con ambas en conjunto (lectura doble). Todo este proceso fue realizado con la ayuda del software Stacks, mediante el uso de la función process_radtag. Para lo cual preparamos una matriz con los códigos de extracción con sus respectivos barcodes (matriz "barcodes"). Esta matriz en formato de texto separado por comas fue utilizado junto con la lectura 1 del Pool1.
+La finalidad del demultiplexing es la dar una identidad a cada secuencia de cada _pool_. Es decir, identificar las lecturas de cada individuo mediante la asociación de los adaptadores de cada pool con la información codificada de cada muestra secuenciada (códigos durante la extracción de ADN). En nuestro caso, trabajaremos solamente con la primera lectura (lectura simple) y también con ambas en conjunto (lectura doble). Todo este proceso fue realizado con la ayuda del software Stacks, mediante el uso de la función process_radtag. Para esto, preparamos una matriz con los códigos de extracción con sus respectivos barcodes (matriz "barcodes"). Esta matriz en formato de texto separado por comas fue utilizado junto con la lectura 1 del Pool1.
 
 Usando (Mac Vero y Pool2):
 
-**macs-MacBook-Pro-2: MingaGenomica macuser$ process_radtags -p ./raw/ -o ./process_Pool2_Read1/ -b ./barcodes_Pool2_Read1/Pool2_Read1.txt -r -c -q --inline_null --renz_1 ecoRI --renz_2 mspI**
-
-Donde:
+    macs-MacBook-Pro-2: MingaGenomica macuser$ process_radtags -p ./raw/ -o ./process_Pool2_Read1/ -b ./barcodes_Pool2_Read1/Pool2_Read1.txt -r -c -q --inline_null --renz_1 ecoRI --renz_2 mspI    
+  
+**Donde:**
 
 -_p_ Es la ubicación (carpeta) donde están las lecturas crudas para ser "procesadas". Si se usa -P se procesan ambas lecturas juntas.
 
 -_o_ Es la ubicación donde se depositará el archivo generado al final del proceso (output).
 
--_b_ Archivos que serán asociados en el proceso. Es decir las lecturas de Ilumina (barcodes_Pool2_Read1) y el archivo de texto con la matriz "barcodes".
+-_b_ Archivos de texto que asocian a cada barcode con cada individuo.
 
 -_r_ -_c_ -_q_ Son defaults.
 
