@@ -6,7 +6,7 @@ Para empezar a modificar un archivo de Marcdown hay que ir primero al directorio
 
 ##**Notas importantes:**
 
-Después de hacer cambios dentro de la carpeta de git (sean eliminación o creación de archivos o modificaciones al interior de los archivos) se deben seguir los siguientes pasos: ("status", "add", "commit" y "push").
+Después de hacer cambios dentro de la carpeta de git (sean creación de archivos o modificaciones al interior de los archivos) se deben seguir los siguientes pasos: ("status", "add", "commit" y "push").
 
 Ejemplos:
 > git status  
@@ -17,13 +17,29 @@ Indica si han habido cambios en la carpeta.
 
 Agrega los cambios (en este cambio "README.md" es el nombre de un archivo en la carpeta).
 
-> commit -m 'aqui explicar el cambio que se hizo'  
+> git commit -m 'aqui explicar el cambio que se hizo'  
 
 Confirma los cambios
 
 > git push origin master 
 
 Sube los cambios al sitio web de git.
+<br/><br/>
+**Para borrar archivos del git:**  
+
+> git rm example.md
+> git commit -m 'file example.md removed'
+
+This erases the file from git AND from the filesystem.
+
+> git rm --cached example.md
+> git commit -m 'file example.md removed'
+
+This erases the file from git BUT NOT from the filesystem.
+
+THEN remember tu **push** the changes to the remote repo!!!
+> git push origin master
+<br/><br/>
 
 __Para subir imágenes a GitHub__
 
