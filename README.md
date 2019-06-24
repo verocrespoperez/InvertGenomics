@@ -181,8 +181,10 @@ Entonces, si r = 0.8, entonces solo se procesarán los locus que estén presente
 > **-p**: _min-populations_. Número mínimo de poblaciones en los que debe estar presente un locus para procesar ese locus.  
 Entonces, si p = 1, un locus debe estar por lo menos en 1 población para procesar ese locus. 
 
+
 ###Obtuvimos los siguientes resultados para loci kept y variant sites remained:  
 
+## _ANDESIOPS_
 ![ResultadosTot](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/ResultsDNovoAnd_Total.png)
 Resultados totales obtenidos del denovo_map para las distintas combinaciones de parámetros.
 
