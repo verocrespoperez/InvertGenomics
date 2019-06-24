@@ -207,7 +207,9 @@ Luego de decidir la mejor combinación de parámetros, se deben filtar los datos
 	
 		Código:  
 `tar -xvf vcftools_0.1.13.tar.gz`  
-**NOTA:** antes de esto es importante estar en el directorio donde está la carpeta comprimida de **vcftools**.
+		
+			NOTA: antes de esto es importante estar en el directorio donde está la carpeta comprimida de vcftools.
+		
 	3. Luego se va al directorio nuevo de **vcftools** (descomprimido) y se siguen los siguientes pasos para compilar el programa.  
 	
 		Código:  
@@ -226,7 +228,7 @@ Para esto primero hay que ir a la carpeta donde está el archivo .vcf creado con
 
 	`vcftools --vcf ./populations.snps.vcf --plink --out And_T8`  
 		
-		NOTA: Esto produce tres archivos nuevos: **.log**, **.ped** y **.map**.
+		NOTA: Esto produce tres archivos nuevos: .log, .ped y .map.
 
 
 	
