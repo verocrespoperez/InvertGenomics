@@ -18,8 +18,8 @@ Los archivos **.rem** (removed) son archivos que no han calificado para el Ilumi
 La finalidad del _demultiplexing_ es dar una identidad a cada secuencia de cada _Pool_. Es decir, identificar y separar las lecturas de cada individuo mediante la asociación de cada uno con su _Barcode_. En nuestro caso trabajaremos con ambas lecturas en conjunto (lectura doble). Todo este proceso fue realizado con la ayuda del software Stacks, mediante el uso de la función process_radtags. Para esto, preparamos una matriz (.txt) con los códigos de extracción (un codigo por individuo) con sus respectivos barcodes (matriz "barcodes"). Esta matriz se utilizó para el proceso de demultiplexing:
 
 ####**Example code for pool 1:** 
-
->`process_radtags -P -b ./Barcode_P1_R1.txt -c -q -r  --renz_1 ecoRI --renz_2 mspI -p /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/raw/Pool1_R1R2 --inline_null -o /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/Output_P1_R1R2`
+Código:
+`process_radtags -P -b ./Barcode_P1_R1.txt -c -q -r  --renz_1 ecoRI --renz_2 mspI -p /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/raw/Pool1_R1R2 --inline_null -o /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/Output_P1_R1R2`
 
 >**-P:** Demultiplexing the two runs (R1 and R2). También sirve con **--paired**  
 **-b**: Barcode file. Archivos de texto que asocian a cada barcode con cada individuo.  
@@ -85,11 +85,9 @@ Depues del **demulpitplexing**, y antes del _de novo_ mapping, se agrupa el cont
 
 Para crear directorios se usa la función **mkdir**, pero antes se debe cambiar el directorio al lugar donde queremos crear la nueva carpeta.
 
-Ejemplos:
-
-	cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/TaxaDemultOutputs
-	
-	mkdir Test
+Código:
+	`cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/TaxaDemultOutputs`
+	`mkdir Test`
 
 Para mover archivos de una carpeta a otra se usa la función _mv_ (move).
 
@@ -141,7 +139,7 @@ Donde:
 Para más información sobre los parámetros de STACKS ver el siguiente [tutorial](http://catchenlab.life.illinois.edu/stacks/param_tut.php) y revisar el artículo de Paris et al. [(2017)](https://github.com/verocrespoperez/InvertGenomics/blob/master/Bibliografia/Paris-etal-2017.pdf).
 
 #### Determinación de los parámetros (_m_, _M_ y _n_) óptimos
-Para determinar los parámetros óptimos elegimos combinaciones lógicas basadas en el artículo de Paris et al. (2017) y corrimos denovo_map para esas combinaciones.   
+Para determinar los parámetros óptimos elegimos combinaciones lógicas basadas en el artículo de Paris et al. [(2017)](https://github.com/verocrespoperez/InvertGenomics/blob/master/Bibliografia/Paris-etal-2017.pdf).   
  
 **Para _Andesiops_ probamos:**  
 m4M6n4  
@@ -162,9 +160,10 @@ m6M7n8
 
 ## 3. Resumen de resultados con Populations
 
-El programa populations de Stacks calcula las estadisticas poblacionales (eg. Fst, pi, etc.). Primero, vamos a mirar los datos de forma muy general buscando loci que estén en el 80% de los individuos (r = 0.8) y asumiendo que todos los individuos pertenecen a la misma población. El código para esto es:
+El programa populations de Stacks calcula las estadisticas poblacionales (eg. Fst, pi, etc.). Primero, vamos a mirar los datos de forma muy general buscando loci que estén en el 80% de los individuos (r = 0.8) y asumiendo que todos los individuos pertenecen a la misma población.  
 
-> `populations -P ./DeNovo_And_R1R2_T8 --popmap ./PopMap_And_sin_rem_2.txt -O ./DeNovo_And_R1R2_T8/Populations_And_T8 -p 1 -r 0.8 --write_random_snp --vcf`
+Código:
+`populations -P ./DeNovo_And_R1R2_T8 --popmap ./PopMap_And_sin_rem_2.txt -O ./DeNovo_And_R1R2_T8/Populations_And_T8 -p 1 -r 0.8 --write_random_snp --vcf`
 
 Donde:
 > **-P**: ruta hacia el directorio de los archivos de Stacks (los generados por el _denovo_ map).    
@@ -177,6 +176,9 @@ Entonces, si p = 1, un locus debe estar por lo menos en 1 población para proces
 
 ###Obtuvimos los siguientes resultados para loci kept y variant sites remained:  
 
+![ResultadosTot](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/ScreenShot_PopMap.jpg)
+
+![ResultadosPops](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/ScreenShot_PopMap.jpg)
 
 **Andesiops:** nos vamos a quedar con dos combinaciones de parámetros:  
 1: **m5 M6 n7** (3849 Loci kept y 3813 Variant sites remained) (Repetición **T8**)  
@@ -192,21 +194,24 @@ Luego de decidir la mejor combinación de parámetros, se deben filtar los datos
 
 - Exportar la matriz de SNPs en formato .vcf utilizando populations con parámetros más restrictivos y con las poblaciones reales a las que pertenece cada individuo (i.e. el archivo _popmap_ original): 
 
-	Ejemplo: 
+	Código:
 `populations -P ./DeNovo_And_R1R2_T8 --popmap ./PopMap_And_R1.txt -O ./DeNovo_And_R1R2_T8/Populations_And_T8 -p 1 -r 0.1 --write_random_snp --vcf`
 
 - Luego hay que instalar el programa **vcftools** que sirve para transformar y filtrar los datos. Para esto:
 	1. Bajar el programa del internet [aquí.](https://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz/download)
-	2. Descomprimirlo:  
+	2. Descomprimirlo.  
+	Código:  
 `tar -xvf vcftools_0.1.13.tar.gz`  
 **NOTA:** antes de esto es importante estar en el directorio donde está la carpeta comprimida de **vcftools**.
-	3. Luego se va al directorio nuevo de **vcftools** (descomprimido) y se siguen los siguientes pasos para compilar el programa:  
+	3. Luego se va al directorio nuevo de **vcftools** (descomprimido) y se siguen los siguientes pasos para compilar el programa.  
+	Código:  
 	`./configure`solo si no hay el archivo "makefile".  
 	`make`  
 	`make install`
 	
 - Transformar el archivo .vcf:  
-Para esto primero hay que ir a la carpeta donde está el archivo .vcf creado con populations. Ejemplo:
+Para esto primero hay que ir a la carpeta donde está el archivo .vcf creado con populations.   
+Código:
 `cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/TaxaDemultOutputs/DeNovo_And_R1R2_T8/Populations_And_T8`
 A continuacióm, se puede ya transformar el archivo .vcf con el siguiente código:
 `vcftools --vcf ./populations.snps.vcf --plink --out And_T8`  
