@@ -17,8 +17,10 @@ Los archivos **.rem** (removed) son archivos que no han calificado para el Ilumi
 
 La finalidad del _demultiplexing_ es dar una identidad a cada secuencia de cada _Pool_. Es decir, identificar y separar las lecturas de cada individuo mediante la asociación de cada uno con su _Barcode_. En nuestro caso trabajaremos con ambas lecturas en conjunto (lectura doble). Todo este proceso fue realizado con la ayuda del software Stacks, mediante el uso de la función process_radtags. Para esto, preparamos una matriz (.txt) con los códigos de extracción (un codigo por individuo) con sus respectivos barcodes (matriz "barcodes"). Esta matriz se utilizó para el proceso de demultiplexing:
 
-####**Example code for pool 1:** 
-Código:
+####**Example code for pool 1:**   
+
+Código:  
+
 `process_radtags -P -b ./Barcode_P1_R1.txt -c -q -r  --renz_1 ecoRI --renz_2 mspI -p /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/raw/Pool1_R1R2 --inline_null -o /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/Output_P1_R1R2`
 
 >**-P:** Demultiplexing the two runs (R1 and R2). También sirve con **--paired**  
@@ -86,8 +88,10 @@ Depues del **demulpitplexing**, y antes del _de novo_ mapping, se agrupa el cont
 Para crear directorios se usa la función **mkdir**, pero antes se debe cambiar el directorio al lugar donde queremos crear la nueva carpeta.
 
 Código:
-	`cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/TaxaDemultOutputs`
-	`mkdir Test`
+
+`cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/TaxaDemultOutputs`
+
+`mkdir Test`
 
 Para mover archivos de una carpeta a otra se usa la función _mv_ (move).
 
@@ -121,7 +125,9 @@ NOTA: ¡¡¡Cuidar que los mismos sitios tengan el mismo nombre!!!
 
 Para empezar a filtrar los datos se usa el programa **`denovo_map.pl`**
 
-Código: `denovo_map.pl -M 3 -n 2 -o ./DeNovo_And_R1/ --popmap ./PopMap_And_R1.txt --samples ./Andesiops_R1`
+Código:   
+
+`denovo_map.pl -M 3 -n 2 -o ./DeNovo_And_R1/ --popmap ./PopMap_And_R1.txt --samples ./Andesiops_R1`
 > **-o**: output directory (hay que crearlos, eg. con `mkdir`)  
 > **--popmap**: archivo popmap  
 > **--samples**: directorio donde están las muestras (demultiplexed files)  
@@ -163,6 +169,7 @@ m6M7n8
 El programa populations de Stacks calcula las estadisticas poblacionales (eg. Fst, pi, etc.). Primero, vamos a mirar los datos de forma muy general buscando loci que estén en el 80% de los individuos (r = 0.8) y asumiendo que todos los individuos pertenecen a la misma población.  
 
 Código:
+
 `populations -P ./DeNovo_And_R1R2_T8 --popmap ./PopMap_And_sin_rem_2.txt -O ./DeNovo_And_R1R2_T8/Populations_And_T8 -p 1 -r 0.8 --write_random_snp --vcf`
 
 Donde:
