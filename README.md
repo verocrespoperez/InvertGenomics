@@ -135,9 +135,9 @@ Código:
 **Parámetros de stacks** <br><br/> 
 _**[ustacks]**: within individuals_   
 > **-m**: _Minimum stack depth / minimum depth of coverage_ (default = 3). Numero de _reads_ idénticos para ser considerados un _stack_. 
-```Entonces, si m = 3, solo grupos formados por 3 o más secuencias idénticas se considerarán como stacks.``` 
+```Entonces, si m = 3, solo grupos formados por 3 o más secuencias idénticas se considerarán como stacks.```   
 > **-M**: _Distance allowed between stacks_ (default = 2). Comparación entre los stacks creados con el parámetro **-m** para agrupar alelos de un mismo locus. **-M** representa el número de nucleótidos que pueden ser diferentes entre dos _stacks_ para unirlos.  Las diferencias en nucleótidos podrían deberse a polimorfismos entre alelos o a errores de secuenciación.
-```Entonces, si M = 2, se permiten máximo dos diferencias entre stacks para agruparlos.``` 
+```Entonces, si M = 2, se permiten máximo dos diferencias entre stacks para agruparlos.```   
 > **-N**: Permite reincorporar secondary reads no incluidos durante el primer paso, para tratar de tener el mayor _coverage_ posible.<br><br/>
 _**[cstacks]**: among individuals_  
 > **-n**: _Distance allowed between catalog loci_ (default = 1). Un catálogo contiene todos los loci y alelos de la población. El valor de **-n** representa el número de diferencias que se permiten entre loci de de varios individuos pra formar un _stack_. Paris et al. [(2017)](https://github.com/verocrespoperez/InvertGenomics/blob/master/Bibliografia/Paris-etal-2017.pdf) recomiendan que `-n`=`-M` o `-n`=`-M`+1.    
