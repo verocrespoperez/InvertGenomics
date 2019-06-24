@@ -138,7 +138,7 @@ Donde:
 
 > **-n**: [cstacks]: Distance allowed between catalog loci. A catalog contains all the loci and alleles in the population.
 
-Para más información sobre los parámetros de STACKS ver el siguiente [tutorial](http://catchenlab.life.illinois.edu/stacks/param_tut.php) y revisar el artículo de Paris et al. (2017).
+Para más información sobre los parámetros de STACKS ver el siguiente [tutorial](http://catchenlab.life.illinois.edu/stacks/param_tut.php) y revisar el artículo de Paris et al. [(2017)](https://github.com/verocrespoperez/InvertGenomics/blob/master/Bibliografia/Paris-etal-2017.pdf).
 
 #### Determinación de los parámetros (_m_, _M_ y _n_) óptimos
 Para determinar los parámetros óptimos elegimos combinaciones lógicas basadas en el artículo de Paris et al. (2017) y corrimos denovo_map para esas combinaciones.   
