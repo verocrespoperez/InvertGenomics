@@ -5,60 +5,34 @@
 1. Demultiplexing
 2. De novo mapping
 3. Resumen de resultados con Populations
+4. Filtrado de matrices
 
 ## 1. Demultiplexing
-Iluimina reconoce el _Primer_ y el sitio de corte (restriction site). Si no reconoce al primer, se borra la lectura para mejorar la calidad de los datos.
-
-Ilumina generó ocho _Pools_ que fueron entregados en carpetas con archivos comprimidos en formato **.fq.gz**. Cada carpeta contenía dos archivos, uno por cada lectura (Read 1 y Read 2, R1 y R2). Dentro de cada archivo, de cada pool, las secuencias estaban asociadas a un _Barcode_ específico por individuo*.
+Ilumina generó ocho _Pools_ que fueron entregados en carpetas con archivos comprimidos en formato **.fq.gz**. Cada carpeta contenía dos archivos, uno por cada lectura (Read 1 y Read 2). Dentro de cada archivo, de cada pool, las secuencias estaban asociadas a un _Barcode_ específico por individuo*.
 > `* el laboratorio envió junto con los resultados un archivo con los barcodes asignados a cada individuo.`  
 
-Los archivos **.rem** (removed) son archivos que no han calificado para el Ilumina. Aunque no son  muy útiles se guardan junto con los demas archivos archivos. 
+Los archivos **.rem** (removed) son archivos que no han calificado para el Ilumina. Aunque no son  muy útiles se guardan junto con los demas archivos. 
 
-> NOTA: antes de empezar el demultiplexing la calidad de cada lectura fue revisada con la ayuda del software **FastQC**, el cual descomprime los archivos **.gzip** y analiza algunos parámetros de calidad del secuenciamiento.
+> NOTA: antes de empezar el _demultiplexing_ la calidad de cada lectura fue revisada con la ayuda del software **FastQC**, el cual descomprime los archivos **.gzip** y analiza algunos parámetros de calidad del secuenciamiento.
 
-La finalidad del demultiplexing es la dar una identidad a cada secuencia de cada _Pool_. Es decir, identificar y separar las lecturas de cada individuo mediante la asociación de los _Barcodes_ a cada indiviudo. En nuestro caso, trabajaremos solamente con la primera lectura (lectura simple) y también con ambas en conjunto (lectura doble). Todo este proceso fue realizado con la ayuda del software Stacks, mediante el uso de la función process_radtags. Para esto, preparamos una matriz (.txt) con los códigos de extracción (un codigo por individuo) con sus respectivos barcodes (matriz "barcodes"). Esta matriz se utilizó para el proceso de demultiplexing:
-
-Usando (Mac Vero y Pool2):
-
-    macs-MacBook-Pro-2: MingaGenomica macuser$ process_radtags -p ./raw/ -o ./process_Pool2_Read1/ -b 
-    ./barcodes_Pool2_Read1/Pool2_Read1.txt -r -c -q --inline_null --renz_1 ecoRI --renz_2 mspI    
-  
-**Donde:**
-
--_p_ Es la ubicación (carpeta) donde están las lecturas crudas para ser "procesadas". Si se usa -P se procesan ambas lecturas juntas.
-
--_o_ Es la ubicación donde se depositará el archivo generado al final del proceso (output).
-
--_b_ Archivos de texto que asocian a cada barcode con cada individuo.
-
--_r_ -_c_ -_q_ Son defaults.
-
-_--inline_null--_ Es recomendado cuando se trabaja con dos enzimas de restricción. (Aunque parece que también sale con --inline_index-- cf.).
-
-_--Renz_1_ Enzima de restricción 1 en formato reconosible para Stacks process_radtags. En nuestro caso ecoR1.
-
-_--Renz_2_ Enzima de restricción 2 en formato reconosible para Stacks process_radtags. En nuestro caso mspI.
-
-Durante este proceso es importante revisar muy bien la sintaxis, pues el mínimo error caligráfico evitará que se realice el proceso. Para lo cual usamos el software bbEdit. Que no muestra caracteres escondidos.
-
-Una vez reemplazados los barcodes de los archivos .gzip por los códigos de cada muestra, se crean carpetas para cada genero donde se depositan los respectivos archivos .gzip.
-
-Comando _mv_ nos permite generar una copia de los archivos de nombre distinto.
-
-_Pipe_ (linea vertical) nos permite continuar la sintyaxs de un inpùt como el out put de la suguienmte función. 
-
-El símbolo > nos permite generar un archivo nuevo  a partir del output  de una funcion.
+La finalidad del _demultiplexing_ es dar una identidad a cada secuencia de cada _Pool_. Es decir, identificar y separar las lecturas de cada individuo mediante la asociación de cada uno con su _Barcode_. En nuestro caso trabajaremos con ambas lecturas en conjunto (lectura doble). Todo este proceso fue realizado con la ayuda del software Stacks, mediante el uso de la función process_radtags. Para esto, preparamos una matriz (.txt) con los códigos de extracción (un codigo por individuo) con sus respectivos barcodes (matriz "barcodes"). Esta matriz se utilizó para el proceso de demultiplexing:
 
 ####**Example code for pool 1:** 
 
->process\_radtags -P -b ./Barcode\_P1\_R1.txt -c -q -r --inline\_index --renz\_1 ecoRI --renz\_2 mspI -p ./raw/Pool1\_R1R2 -o ./Output\_P1\_R1R2\_B --inline\_null
+>`process_radtags -P -b ./Barcode_P1_R1.txt -c -q -r  --renz_1 ecoRI --renz_2 mspI -p /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/raw/Pool1_R1R2 --inline_null -o /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/Output_P1_R1R2`
 
->-P: Demultiplexing the two runs (R1 and R2)  
--b: Barcode file  
--p: Raw files  
--o: Output directory
+>**-P:** Demultiplexing the two runs (R1 and R2). También sirve con **--paired**  
+**-b**: Barcode file. Archivos de texto que asocian a cada barcode con cada individuo.  
+**-_r_ -_c_ -_q_**: defaults. Ver [aquí](http://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php) para más información.    
+**-p**: Raw files. Ubicación (carpeta) donde están las lecturas crudas para ser procesadas. Si se usa -P se procesan ambas lecturas juntas.  
+**-o**: Output directory. Ubicación donde se depositará el archivo generado al final del proceso (output).  
+**--inline_null**: barcode is inline with sequence, occurs only on single-end read (default).     
+**--renz_1**: Enzima de restricción 1 en formato reconocible para Stacks. En nuestro caso **ecoR1**.  
+**--renz_2**: Enzima de restricción 2 en formato reconocible para Stacks. En nuestro caso **mspI**.
 
->Click [here](http://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php) for additional process_radtags options
+Durante este proceso es importante revisar muy bien la sintaxis, pues el mínimo error caligráfico evitará que se realice el proceso. Para corregir errores usamos el software bbEdit (o TextWrangler), que muestra caracteres escondidos.
+
+Click [here](http://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php) for additional process_radtags options
 
 ####**Results - demultiplexing  with process\_radtags**  
 **Pool 1:**  
@@ -107,7 +81,7 @@ If error: "(filenames can consist of letters, numbers, '.', '-' and '_')", there
 ## 2. _de novo_ mapping  
 
 ###Primer paso: ordenar los archivos
-Depues del **demulpitplexing**, y antes del _de novo_ mapping, se agrupa el contenido de los pools en una carpeta por cada taxa.
+Depues del **demulpitplexing**, y antes del _de novo_ mapping, se agrupa el contenido de los pools en una carpeta por cada taxón.
 
 Para crear directorios se usa la función **mkdir**, pero antes se debe cambiar el directorio al lugar donde queremos crear la nueva carpeta.
 
@@ -123,15 +97,16 @@ Para mover archivos de una carpeta a otra se usa la función _mv_ (move).
 
 Para hacer esto:  
 
-1. Hacer una lista de todos los archivos de la carpeta donde estan las muestras. Para esto:
+1. Hacer una lista de todos los archivos de la carpeta donde estan las muestras y crear un archivo de texto con esa lista. Para esto:
 
 	ls > newfilename.txt  
 	**¡Importante 1!** antes se debe cambiar el directorio (con cd) para estar en la carpeta donde están los archivos (samples).  
-	**¡Importante 2!** borrar los archivos innecesarios como los rem (removidos durante el demultiplexing). También, si solo se va a analizar los R1, dejar solo los archivos de read 1. 
+	**¡Importante 2!** borrar los archivos innecesarios como los rem (removidos durante el demultiplexing). También, en el caso de que se vayan a analizar solo los R1, dejar solo los archivos de read 1 en la carpeta. 
 	  
-2. Editar el archivo en TextWrangler para borrar partes innecesarias:   
+2. Editar el archivo de texto en TextWrangler para borrar partes innecesarias:   
 
-	En el nombre: **001And_G14V.1.fq.gz** no es necesario todo lo que va después del punto. Además, falta otra columna con el nombre (o código de los sitios). Para modificar todo esto:
+	Ejemplo:   
+	En el nombre: **001And_G14V.1.fq.gz** no es necesario todo lo que va después del primer punto. Además, falta otra columna con el nombre (o código) de los sitios. Para modificar todo esto:
  
 ![Codigo grep](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/GrepTW.jpg)
 
@@ -149,19 +124,19 @@ NOTA: ¡¡¡Cuidar que los mismos sitios tengan el mismo nombre!!!
 Para empezar a filtrar los datos se usa el programa **`denovo_map.pl`**
 
 Código: `denovo_map.pl -M 3 -n 2 -o ./DeNovo_And_R1/ --popmap ./PopMap_And_R1.txt --samples ./Andesiops_R1`
-> -o: output directory (hay que crearlos, eg. con _mkdir_)  
-> --popmap: archivo popmap  
-> --samples: directorio donde están las muestras (demultiplexed files)  
-> -M y -n son parámetros de STACKS 
+> **-o**: output directory (hay que crearlos, eg. con `mkdir`)  
+> **--popmap**: archivo popmap  
+> **--samples**: directorio donde están las muestras (demultiplexed files)  
+> **-M** y **-n** son parámetros de STACKS 
 
 Donde:
-> -_m_: [ustacks]: Minimum stack depth / minimum depth of coverage (default: 3); para generar stacks idénticos.
+> **-m**: [ustacks]: Minimum stack depth / minimum depth of coverage (default: 3); para generar stacks idénticos.
 
-> -_M_: [ustacks]: Distance allowed between stacks (default: 2); permite comparar entre los stacks creados en el parámetro -m; cuantos lugares polimórficos se permiten dentro de los individuos para formar un stack, define los heterocigotos dentro de los individuos.
+> **-M**: [ustacks]: Distance allowed between stacks (default: 2); permite comparar entre los stacks creados en el parámetro -m; cuantos lugares polimórficos se permiten dentro de los individuos para formar un stack, define los heterocigotos dentro de los individuos.
 
-> -_N_: [ustacks]: Permite reincorporar secondary reads no incluidos durante el primer paso, para tratar de tener el mayor coverage posible.
+> **-N**: [ustacks]: Permite reincorporar secondary reads no incluidos durante el primer paso, para tratar de tener el mayor coverage posible.
 
-> -_n_: [cstacks]: Distance allowed between catalog loci. A catalog contains all the loci and alleles in the population.
+> **-n**: [cstacks]: Distance allowed between catalog loci. A catalog contains all the loci and alleles in the population.
 
 Para más información sobre los parámetros de STACKS ver el siguiente [tutorial](http://catchenlab.life.illinois.edu/stacks/param_tut.php) y revisar el artículo de Paris et al. (2017).
 
@@ -187,26 +162,56 @@ m6M7n8
 
 ## 3. Resumen de resultados con Populations
 
-El programa populations de stacks calcula las estadisticas poblacionales (eg. Fst, pi, etc.). El código es:
+El programa populations de Stacks calcula las estadisticas poblacionales (eg. Fst, pi, etc.). Primero, vamos a mirar los datos de forma muy general buscando loci que estén en el 80% de los individuos (r = 0.8) y asumiendo que todos los individuos pertenecen a la misma población. El código para esto es:
 
-> `populations -P ./DeNovo_And_R1R2_T8 --popmap ./PopMap_And_R1.txt -O ./DeNovo_And_R1R2_T8/Populations_And_T8 -p 0.1 -r 0.1 --write_random_snp --vcf`
+> `populations -P ./DeNovo_And_R1R2_T8 --popmap ./PopMap_And_sin_rem_2.txt -O ./DeNovo_And_R1R2_T8/Populations_And_T8 -p 1 -r 0.8 --write_random_snp --vcf`
 
 Donde:
-> -_r_: 
-    
-> -_p_: 
+> **-P**: ruta hacia el directorio de los archivos de Stacks (los generados por el _denovo_ map).    
+> **--popmap**: archivo popmap en el que todos los individuos pertentecen a la misma población (i.e. mismo código de sitio para todos).  
+> **-O**: Output directory  
+> **-r**: _min-samples-per-pop_. Porcentaje mínimo de individuos en una población para procesar un locus para esa población.  
+Entonces, si r = 0.8, entonces solo se procesarán los locus que estén presentes en, por lo menos, 80% de los individuos.    
+> **-p**: _min-populations_. Número mínimo de poblaciones en los que debe estar presente un locus para procesar ese locus.  
+Entonces, si p = 1, un locus debe estar por lo menos en 1 población para procesar ese locus. 
 
-Los resultados obtenidos 
-
-Obtuvimos los siguientes resultados para loci kept y variant sites remained:  
+###Obtuvimos los siguientes resultados para loci kept y variant sites remained:  
 
 
-Andesiops: nos vamos a quedar con dos combinaciones de parámetros:
-1: m5 M6 n7 (3849 Loci kept y 3813 Variant sites remained) (Repetición T8)
-2: m4 M6 n7 (4408 Loci kept y 4367 Variant sites remained) (Repetición T7)
+**Andesiops:** nos vamos a quedar con dos combinaciones de parámetros:  
+1: **m5 M6 n7** (3849 Loci kept y 3813 Variant sites remained) (Repetición **T8**)  
+2: **m4 M6 n7** (4408 Loci kept y 4367 Variant sites remained) (Repetición **T7**)  
 
 El problema con los m=4 es que hay algunos individuos que tienen en promedio bajo coverage (< 6)
 
-nano .bash_profile
+NOTA: `nano .bash_profile` sirve para editar el archivo .bash_profile que es un archivo del sistema operativo...
+
+## 4. Filtrado de matrices
+
+Luego de decidir la mejor combinación de parámetros, se deben filtar los datos para llegar a la matriz final de SNPs. Para esto hay que:
+
+- Exportar la matriz de SNPs en formato .vcf utilizando populations con parámetros más restrictivos y con las poblaciones reales a las que pertenece cada individuo (i.e. el archivo _popmap_ original): 
+
+	Ejemplo: 
+`populations -P ./DeNovo_And_R1R2_T8 --popmap ./PopMap_And_R1.txt -O ./DeNovo_And_R1R2_T8/Populations_And_T8 -p 1 -r 0.1 --write_random_snp --vcf`
+
+- Luego hay que instalar el programa **vcftools** que sirve para transformar y filtrar los datos. Para esto:
+	1. Bajar el programa del internet [aquí.](https://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz/download)
+	2. Descomprimirlo:  
+`tar -xvf vcftools_0.1.13.tar.gz`  
+**NOTA:** antes de esto es importante estar en el directorio donde está la carpeta comprimida de **vcftools**.
+	3. Luego se va al directorio nuevo de **vcftools** (descomprimido) y se siguen los siguientes pasos para compilar el programa:  
+	`./configure`solo si no hay el archivo "makefile".  
+	`make`  
+	`make install`
+	
+- Transformar el archivo .vcf:  
+Para esto primero hay que ir a la carpeta donde está el archivo .vcf creado con populations. Ejemplo:
+`cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/TaxaDemultOutputs/DeNovo_And_R1R2_T8/Populations_And_T8`
+A continuacióm, se puede ya transformar el archivo .vcf con el siguiente código:
+`vcftools --vcf ./populations.snps.vcf --plink --out And_T8`  
+Esto produce tres archivos nuevos: **.log**, **.ped** y **.map**.
 
 
+	
+ 
