@@ -186,9 +186,10 @@ Resultados obtenidos después de correr populations para las distintas combinaci
 1: **m5 M6 n7** (3849 Loci kept y 3813 Variant sites remained) (Repetición **T8**)  
 2: **m4 M6 n7** (4408 Loci kept y 4367 Variant sites remained) (Repetición **T7**)  
 
-El problema con los m=4 es que hay algunos individuos que tienen en promedio bajo coverage (< 6)
-
-NOTA: `nano .bash_profile` sirve para editar el archivo .bash_profile que es un archivo del sistema operativo...
+El problema con los m=4 es que hay algunos individuos que tienen en promedio bajo coverage (< 6)  
+```
+NOTA: nano .bash_profile sirve para editar el archivo .bash_profile que es un archivo del sistema operativo...
+```
 
 ## 4. Filtrado de matrices
 
@@ -202,18 +203,21 @@ Luego de decidir la mejor combinación de parámetros, se deben filtar los datos
 - Luego hay que instalar el programa **vcftools** que sirve para transformar y filtrar los datos. Para esto:
 	1. Bajar el programa del internet [aquí.](https://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz/download)
 	2. Descomprimirlo.  
-	Código:  
+	
+		Código:  
 `tar -xvf vcftools_0.1.13.tar.gz`  
 **NOTA:** antes de esto es importante estar en el directorio donde está la carpeta comprimida de **vcftools**.
 	3. Luego se va al directorio nuevo de **vcftools** (descomprimido) y se siguen los siguientes pasos para compilar el programa.  
-	Código:  
+	
+		Código:  
 	`./configure`solo si no hay el archivo "makefile".  
 	`make`  
 	`make install`
 	
 - Transformar el archivo .vcf:  
 Para esto primero hay que ir a la carpeta donde está el archivo .vcf creado con populations.   
-Código:
+
+	Código:
 `cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/TaxaDemultOutputs/DeNovo_And_R1R2_T8/Populations_And_T8`
 A continuacióm, se puede ya transformar el archivo .vcf con el siguiente código:
 `vcftools --vcf ./populations.snps.vcf --plink --out And_T8`  
