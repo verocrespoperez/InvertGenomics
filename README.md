@@ -81,7 +81,7 @@ If error: "(filenames can consist of letters, numbers, '.', '-' and '_')", there
 ## 2. _de novo_ mapping  
 
 ###Primer paso: ordenar los archivos
-Depues del **demulpitplexing**, y antes del _de novo_ mapping, se agrupa el contenido de los pools en una carpeta por cada taxón.
+Depues del **demulpitplexing**, y antes del _de novo_ mapping, se agrupa el contenido de los _Pools_ en una carpeta por cada taxón.
 
 Para crear directorios se usa la función **mkdir**, pero antes se debe cambiar el directorio al lugar donde queremos crear la nueva carpeta.
 
