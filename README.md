@@ -218,11 +218,15 @@ Luego de decidir la mejor combinación de parámetros, se deben filtar los datos
 - Transformar el archivo .vcf:  
 Para esto primero hay que ir a la carpeta donde está el archivo .vcf creado con populations.   
 
-	Código:
-`cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/TaxaDemultOutputs/DeNovo_And_R1R2_T8/Populations_And_T8`
-A continuacióm, se puede ya transformar el archivo .vcf con el siguiente código:
-`vcftools --vcf ./populations.snps.vcf --plink --out And_T8`  
-Esto produce tres archivos nuevos: **.log**, **.ped** y **.map**.
+	Código:  
+		
+	`cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/TaxaDemultOutputs/DeNovo_And_R1R2_T8/Populations_And_T8`
+
+	A continuacióm, se puede ya transformar el archivo .vcf con el siguiente código:
+
+	`vcftools --vcf ./populations.snps.vcf --plink --out And_T8`  
+		
+		NOTA: Esto produce tres archivos nuevos: **.log**, **.ped** y **.map**.
 
 
 	
