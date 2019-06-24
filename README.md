@@ -176,9 +176,9 @@ Entonces, si p = 1, un locus debe estar por lo menos en 1 población para proces
 
 ###Obtuvimos los siguientes resultados para loci kept y variant sites remained:  
 
-![ResultadosTot](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/ScreenShot_PopMap.jpg)
+![ResultadosTot](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/ResultsDNovoAnd_Total.png)
 
-![ResultadosPops](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/ScreenShot_PopMap.jpg)
+![ResultadosPops](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/ResultsDNovoAnd_Pops.png)
 
 **Andesiops:** nos vamos a quedar con dos combinaciones de parámetros:  
 1: **m5 M6 n7** (3849 Loci kept y 3813 Variant sites remained) (Repetición **T8**)  
