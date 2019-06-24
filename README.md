@@ -197,8 +197,9 @@ Luego de decidir la mejor combinación de parámetros, se deben filtar los datos
 
 - Exportar la matriz de SNPs en formato .vcf utilizando populations con parámetros más restrictivos y con las poblaciones reales a las que pertenece cada individuo (i.e. el archivo _popmap_ original): 
 
-	Código:
-`populations -P ./DeNovo_And_R1R2_T8 --popmap ./PopMap_And_R1.txt -O ./DeNovo_And_R1R2_T8/Populations_And_T8 -p 1 -r 0.1 --write_random_snp --vcf`
+	Código:  
+	
+	`populations -P ./DeNovo_And_R1R2_T8 --popmap ./PopMap_And_R1.txt -O ./DeNovo_And_R1R2_T8/Populations_And_T8 -p 1 -r 0.1 --write_random_snp --vcf`
 
 - Luego hay que instalar el programa **vcftools** que sirve para transformar y filtrar los datos. Para esto:
 	1. Bajar el programa del internet [aquí.](https://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz/download)
