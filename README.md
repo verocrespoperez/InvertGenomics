@@ -239,6 +239,60 @@ Para esto primero hay que ir a la carpeta donde está el archivo .vcf creado con
 		
 		NOTA: Esto produce tres archivos nuevos: .log, .ped y .map.
 
+Mover el plink al directorio donde están los archivos que se van a filtrar (.ped y .map)
 
-	
- 
+_**Andesiops**_
+
+--geno: filtrar los loci que están presentes en por lo menos el 50% de los individuos
+--mind filtrar individuos con muy pocos datos
+--maf _minor allele frequency_
+
+ **Con geno = 0.5, mind = 0.5 y maf = 0.01**  
+
+> Resultados **a**:   
+
+> * After frequency and genotyping pruning, there are **9954** SNPs
+
+> Resultados **b**:  
+
+> * 16 of 82 individuals removed for low genotyping ( MIND > 0.5 )
+		
+		66 individuos restrantes
+
+> Resultados **c**:
+
+> * After frequency and genotyping pruning, there are **7170** SNPs  
+
+```Nota: a = output de primer filtro (geno), b = output de segundo filtro (individuos) y c = output del tercer filtro (MAF)
+```
+
+**Con geno = 0.4 (SNPs que estan en, por lo menos, el 60% de los individuos), mind = 0.5 y maf = 0.01**
+> Resultados a:   
+
+> * After frequency and genotyping pruning, there are **7217** SNPs
+
+> Resultados b  
+
+> * 15 of 82 individuals removed for low genotyping ( MIND > 0.5 )
+		
+		67 individuos restrantes
+		
+> Resultados c	
+
+> * After frequency and genotyping pruning, there are **4721** SNPs
+
+**Con geno = 0.3 (SNPs que estan en, por lo menos, el 70% de los individuos), mind = 0.5 y maf = 0.01**
+
+> Resultados a:
+
+> After frequency and genotyping pruning, there are **5752** SNPs
+
+> Resultados b  
+
+> * 10 of 82 individuals removed for low genotyping ( MIND > 0.5 )
+		
+		72 individuos restrantes
+		
+> Resultados c	
+
+> * After frequency and genotyping pruning, there are **4615** SNPs		
