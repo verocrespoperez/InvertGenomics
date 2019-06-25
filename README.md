@@ -280,7 +280,7 @@ _**Andesiops**_
 
 **Con geno = 0.3 (SNPs que estan en, por lo menos, el 70% de los individuos), mind = 0.5 y maf = 0.01**
 
-> Resultados a:
+> Resultados a:  
 > After frequency and genotyping pruning, there are **5752** SNPs
 
 > Resultados b  
