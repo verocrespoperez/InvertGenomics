@@ -239,49 +239,57 @@ Para esto primero hay que ir a la carpeta donde está el archivo .vcf creado con
 		
 		NOTA: Esto produce tres archivos nuevos: .log, .ped y .map.
 
-Mover el plink al directorio donde están los archivos que se van a filtrar (.ped y .map)
+### Filtrado de matrices con plink
 
-_**Andesiops**_
+Plink ayuda a remover SNPs raros (que estan en pocos individuos), individuos con pocos datos y alelos raros. Para estos analisis primero hay que:  
 
---geno: filtrar los loci que están presentes en por lo menos el 50% de los individuos
---mind filtrar individuos con muy pocos datos
---maf _minor allele frequency_
+1. Mover el ejecutable de plink al directorio donde están los archivos que se van a filtrar (.ped y .map).
+2. Luego se filtran los datos en una serie de pasos:
+
+Codigo:
+`./plink --file And_T8 --geno 0.5 --recode --out And_T8_a --noweb`
+`--geno`: filtra los loci que están presentes en por lo menos el tanto % de los individuos.
+
+`./plink --file And_T8_a --mind 0.5 --recode --out And_T8_b --noweb`
+`--mind`: filtra individuos con muy pocos datos
+
+`./plink --file And_T8_b --maf 0.01 --recode --out And_T8_c --noweb`
+`--maf`: (_minor allele frequency_) remueve alelos raros que aparecen en solo el tanto por ciento de los individuos. 
+
+####Resultados para _Andesiops_ T8
 
  **Con geno = 0.5, mind = 0.5 y maf = 0.01**  
 
 > Resultados **a**:   
-
 > * After frequency and genotyping pruning, there are **9954** SNPs
 
 > Resultados **b**:  
-
 > * 16 of 82 individuals removed for low genotyping ( MIND > 0.5 )
 		
 		66 individuos restrantes
 
 > Resultados **c**:
-
 > * After frequency and genotyping pruning, there are **7170** SNPs  
 
->>Nota: **a** = output de primer filtro (geno), **b** = output de segundo filtro (individuos) y **c** = output del tercer filtro (MAF)
+Nota: **a** = output de primer filtro (geno), **b** = output de segundo filtro (mind) y **c** = output del tercer filtro (maf)
 
 
 **Con geno = 0.4 (SNPs que estan en, por lo menos, el 60% de los individuos), mind = 0.5 y maf = 0.01**
-> Resultados a:   
+> Resultados **a**:   
 > * After frequency and genotyping pruning, there are **7217** SNPs
 
-> Resultados b  
+> Resultados **b**:  
 > * 15 of 82 individuals removed for low genotyping ( MIND > 0.5 )
 		
 		67 individuos restrantes
 		
-> Resultados c	
+> Resultados **c**:	
 > * After frequency and genotyping pruning, there are **4721** SNPs
 
 **Con geno = 0.3 (SNPs que estan en, por lo menos, el 70% de los individuos), mind = 0.5 y maf = 0.01**
 
 > Resultados a:  
-> After frequency and genotyping pruning, there are **5752** SNPs
+> * After frequency and genotyping pruning, there are **5752** SNPs
 
 > Resultados b  
 > * 10 of 82 individuals removed for low genotyping ( MIND > 0.5 )
@@ -289,4 +297,30 @@ _**Andesiops**_
 		72 individuos restrantes
 		
 > Resultados c	
-> * After frequency and genotyping pruning, there are **4615** SNPs		
+> * After frequency and genotyping pruning, there are **4615** SNPs
+
+###Nos vamos a quedar con esta combinacion de parametros para _Andesiops_ T8 (geno = 0.3, mind = 0.5 y maf = 0.01) que nos deja con 72 individuos. 
+
+##Linkage
+		
+Calcula el nivel de linkage entre SNPs. Para esto se usa el siguiente codigo:
+
+`./plink --file And_T8_c --r2 --out And_T8_Link`  
+	
+El input file es el archivo final de lo anterior (aplicados los tres filtros seleccionados). Con esto se obtienen varios archivos (.ld, .log .nosex). El archivo .ld inidca el nivel de linkage entre pares de SNPs y nos sirve para luego excluir SNPs con alto linkage. Para esto: 
+
+- Abrimos el archivo .ld y lo transformamos a .txt para abrirlo con Excel, donde ordenamos las filas de acuerdo al r2 que representa la proporcion de linkage.   
+
+		Nota 1: En el archivo .ld los nombres de los SNPs estan dados como: 4432:3. El primer numero representa el numero del SNP (Stacks asigna cualquier numero a los SNPs) y el segundo la posicion del SNP en ese locus.    
+
+		Nota 2: Si excel no lee bien los nombres de las celdas (en nuestro caso les dio formato de fecha!!!) se puede cambiar con TextWrangler los ":" por "-".
+
+- Elegimos un umbral de linkage y excluimos todos los SNPs que tengan un linkage mayor a este umbral. En el caso de _Andesiops_ vamos a excluir SNPs con linkage mayor a 0.6 (con > 0.5 perdemos demasiados SNPs). 
+
+- En la columna SNP_A del excel, elegimos todos los SNPs con r2 mayor o igual a nuestro umbral. Copiamos esas celdas, pegamos en otra hoja de Excel y removemos los duplicados (boton "Remove Duplicates" de la pestania "Data").
+
+- Copiamos y pegamos esas celdas en un archivo de TextWrangler (cambiamos "-" por ":" de ser necesario) y lo grabamos como .txt con un nombre como "Blacklist_AndT8.txt". Este archivo se va a usar para excluir los SNPs con alto linkage en lo siguiente:
+
+`./plink --file And_T8_c --exclude BlackList_AndT8.txt --recode --out And_T8_d` 
+
+### Esto nos deja con **2633** SNPs para _Andesiops_
