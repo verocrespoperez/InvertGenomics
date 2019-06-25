@@ -263,36 +263,30 @@ _**Andesiops**_
 
 > * After frequency and genotyping pruning, there are **7170** SNPs  
 
-```Nota: a = output de primer filtro (geno), b = output de segundo filtro (individuos) y c = output del tercer filtro (MAF)
-```
+>>Nota: **a** = output de primer filtro (geno), **b** = output de segundo filtro (individuos) y **c** = output del tercer filtro (MAF)
+
 
 **Con geno = 0.4 (SNPs que estan en, por lo menos, el 60% de los individuos), mind = 0.5 y maf = 0.01**
 > Resultados a:   
-
 > * After frequency and genotyping pruning, there are **7217** SNPs
 
 > Resultados b  
-
 > * 15 of 82 individuals removed for low genotyping ( MIND > 0.5 )
 		
 		67 individuos restrantes
 		
 > Resultados c	
-
 > * After frequency and genotyping pruning, there are **4721** SNPs
 
 **Con geno = 0.3 (SNPs que estan en, por lo menos, el 70% de los individuos), mind = 0.5 y maf = 0.01**
 
 > Resultados a:
-
 > After frequency and genotyping pruning, there are **5752** SNPs
 
 > Resultados b  
-
 > * 10 of 82 individuals removed for low genotyping ( MIND > 0.5 )
 		
 		72 individuos restrantes
 		
 > Resultados c	
-
 > * After frequency and genotyping pruning, there are **4615** SNPs		
