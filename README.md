@@ -6,6 +6,7 @@
 2. De novo mapping
 3. Resumen de resultados con Populations
 4. Filtrado de matrices
+5. Análisis de las matrices de SNPs con R
 
 ## 1. Demultiplexing
 Ilumina generó ocho _Pools_ que fueron entregados en carpetas con archivos comprimidos en formato **.fq.gz**. Cada carpeta contenía dos archivos, uno por cada lectura (Read 1 y Read 2). Dentro de cada archivo, de cada pool, las secuencias estaban asociadas a un _Barcode_ específico por individuo*.
@@ -176,8 +177,8 @@ Donde:
 > **-P**: ruta hacia el directorio de los archivos de Stacks (los generados por el _denovo_ map).    
 > **--popmap**: archivo popmap en el que todos los individuos pertentecen a la misma población (i.e. mismo código de sitio para todos).  
 > **-O**: Output directory  
-> **-r**: _min-samples-per-pop_. Porcentaje mínimo de individuos en una población para procesar un locus para esa población.  
-Entonces, si r = 0.8, entonces solo se procesarán los locus que estén presentes en, por lo menos, 80% de los individuos.    
+> **-r**: _min-samples-per-pop_. Porcentaje mínimo de individuos en los que está un locus en una población para procesar ese locus.  
+Entonces, si r = 0.8, entonces solo se procesarán los locus que estén presentes en, por lo menos, 80% de los individuos de la población.    
 > **-p**: _min-populations_. Número mínimo de poblaciones en los que debe estar presente un locus para procesar ese locus.  
 Entonces, si p = 1, un locus debe estar por lo menos en 1 población para procesar ese locus. 
 
@@ -204,7 +205,7 @@ NOTA: nano .bash_profile sirve para editar el archivo .bash_profile que es un ar
 
 Luego de decidir la mejor combinación de parámetros, se deben filtar los datos para llegar a la matriz final de SNPs. Para esto hay que:
 
-- Exportar la matriz de SNPs en formato .vcf utilizando populations con parámetros más restrictivos y con las poblaciones reales a las que pertenece cada individuo (i.e. el archivo _popmap_ original): 
+- Exportar la matriz de SNPs en formato .vcf utilizando populations con parámetros más restrictivos (p = 1 y r = 0.1) y con las poblaciones reales a las que pertenece cada individuo (i.e. el archivo _popmap_ original): 
 
 	Código:  
 	
@@ -238,6 +239,10 @@ Para esto primero hay que ir a la carpeta donde está el archivo .vcf creado con
 	`vcftools --vcf ./populations.snps.vcf --plink --out And_T8`  
 		
 		NOTA: Esto produce tres archivos nuevos: .log, .ped y .map.
+		
+En este paso tenemos:
+**66587** loci para Andesiops T8 
+**69674** loci para Andesiops T7
 
 ### Filtrado de matrices con plink
 
@@ -299,9 +304,52 @@ Nota: **a** = output de primer filtro (geno), **b** = output de segundo filtro (
 > Resultados c	
 > * After frequency and genotyping pruning, there are **4615** SNPs
 
-###Nos vamos a quedar con esta combinacion de parametros para _Andesiops_ T8 (geno = 0.3, mind = 0.5 y maf = 0.01) que nos deja con 72 individuos. 
+####Nos vamos a quedar con esta combinacion de parametros para _Andesiops_ T8 (geno = 0.3, mind = 0.5 y maf = 0.01) que nos deja con 72 individuos y 4615 SNPs. 
 
-##Linkage
+______________________________________
+####Resultados para _Andesiops_ T7
+
+ **Con geno = 0.5, mind = 0.5 y maf = 0.01**  
+
+> Resultados **a**:  
+> * After frequency and genotyping pruning, there are 10784 SNPs
+
+> Resultados **b**:  
+> * 14 of 82 individuals removed for low genotyping ( MIND > 0.5 )
+
+		68 individuos restrantes
+
+> Resultados **c**:
+> * After frequency and genotyping pruning, there are 7829 SNPs
+
+**Con geno = 0.4 (SNPs que estan en, por lo menos, el 60% de los individuos), mind = 0.5 y maf = 0.01**
+> Resultados **a**:   
+> * After frequency and genotyping pruning, there are 7655 SNPs
+
+> Resultados **b**:   
+> * 13 of 82 individuals removed for low genotyping ( MIND > 0.5 )
+
+		69 individuos restrantes
+
+> Resultados **c**:	
+> * After frequency	and genotyping pruning, there are 5015 SNPs  	
+
+**Con geno = 0.3 (SNPs que estan en, por lo menos, el 70% de los individuos), mind = 0.5 y maf = 0.01**
+
+> Resultados a:  
+> * After frequency and genotyping pruning, there are 6244 SNPs
+
+> Resultados **b**:   
+> * 9 of 82 individuals removed for low genotyping ( MIND > 0.5 )
+
+		73 individuos restrantes
+
+> Resultados **c**:	
+> * After frequency and genotyping pruning, there are 5010 SNPs
+
+####Nos vamos a quedar con esta combinacion de parametros para _Andesiops_ T7 (geno = 0.3, mind = 0.5 y maf = 0.01) que nos deja con 73 individuos y 5010 SNPs.
+
+###Linkage
 		
 Calcula el nivel de linkage entre SNPs. Para esto se usa el siguiente codigo:
 
@@ -309,18 +357,32 @@ Calcula el nivel de linkage entre SNPs. Para esto se usa el siguiente codigo:
 	
 El input file es el archivo final de lo anterior (aplicados los tres filtros seleccionados). Con esto se obtienen varios archivos (.ld, .log .nosex). El archivo .ld inidca el nivel de linkage entre pares de SNPs y nos sirve para luego excluir SNPs con alto linkage. Para esto: 
 
-- Abrimos el archivo .ld y lo transformamos a .txt para abrirlo con Excel, donde ordenamos las filas de acuerdo al r2 que representa la proporcion de linkage.   
+- Abrimos el archivo .ld en TextWrangler y lo transformamos a .txt para abrirlo con Excel, donde ordenamos las filas de acuerdo al r2 que representa la proporcion de linkage.   
 
-		Nota 1: En el archivo .ld los nombres de los SNPs estan dados como: 4432:3. El primer numero representa el numero del SNP (Stacks asigna cualquier numero a los SNPs) y el segundo la posicion del SNP en ese locus.    
+		Nota 1: En el archivo .ld los nombres de los SNPs estan dados como: 4432:3. El primer número representa el número de locus (Stacks asigna cualquier numero a los locus) y el segundo la posicion del SNP en ese locus.    
 
-		Nota 2: Si excel no lee bien los nombres de las celdas (en nuestro caso les dio formato de fecha!!!) se puede cambiar con TextWrangler los ":" por "-".
+		Nota 2: Si excel no lee bien los nombres de las celdas (¡¡¡en nuestro caso les dio formato de fecha!!!) se puede cambiar con TextWrangler los ":" por "-".
 
 - Elegimos un umbral de linkage y excluimos todos los SNPs que tengan un linkage mayor a este umbral. En el caso de _Andesiops_ vamos a excluir SNPs con linkage mayor a 0.6 (con > 0.5 perdemos demasiados SNPs). 
 
-- En la columna SNP_A del excel, elegimos todos los SNPs con r2 mayor o igual a nuestro umbral. Copiamos esas celdas, pegamos en otra hoja de Excel y removemos los duplicados (boton "Remove Duplicates" de la pestania "Data").
+- En la columna SNP_A del excel, elegimos todos los SNPs con r2 mayor o igual a nuestro umbral. Copiamos esas celdas, pegamos en otra hoja de Excel y removemos los duplicados (boton "Remove Duplicates" de la pestaña "Data").
 
 - Copiamos y pegamos esas celdas en un archivo de TextWrangler (cambiamos "-" por ":" de ser necesario) y lo grabamos como .txt con un nombre como "Blacklist_AndT8.txt". Este archivo se va a usar para excluir los SNPs con alto linkage en lo siguiente:
 
 `./plink --file And_T8_c --exclude BlackList_AndT8.txt --recode --out And_T8_d` 
 
-### Esto nos deja con **2633** SNPs para _Andesiops_
+#### Esto nos deja con:
+**2633** SNPs y **72** individuos para _Andesiops_ T8  
+
+**2892** SNPs y **73** individuospara _Andesiops_ T7
+
+
+###Heterocigocidad
+
+Para estimar el nivel de heterocigocidad, que nos da una idea del nivel de endogamia en las poblaciones, usamos el siguiente código:
+
+`./plink --noweb --file And_T8_d --het --out And_T8_Het`
+
+El _input file_ es el output del paso anterior, osea ya filtrado el linkage, en este caso `And_T8_d`.
+
+## 5. Análisis de las matrices de SNPs con R
