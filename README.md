@@ -374,7 +374,7 @@ El input file es el archivo final de lo anterior (aplicados los tres filtros sel
 #### Esto nos deja con:
 **2633** SNPs y **72** individuos para _Andesiops_ T8  
 
-**2892** SNPs y **73** individuospara _Andesiops_ T7
+**2892** SNPs y **73** individuos para _Andesiops_ T7
 
 
 ###Heterocigocidad
@@ -386,3 +386,11 @@ Para estimar el nivel de heterocigocidad, que nos da una idea del nivel de endog
 El _input file_ es el output del paso anterior, osea ya filtrado el linkage, en este caso `And_T8_d`.
 
 ## 5. Análisis de las matrices de SNPs con R
+Los archivos .ped y .map que se obtienen de lo anterior se deben convertir a archivos de structure (.str). Esto se hace con el programa PGDSpider...  
+Por alguna razón, el archivo .str obtenido asigna una población diferente a cada individuo, en lugar de asignarles las poblaciones del archivo popmap. El archivo se ve así:  
+
+Para solucionar esto se puede modificar el archivo con grep en TextWrangler de la siguiente manera:
+
+
+
+
