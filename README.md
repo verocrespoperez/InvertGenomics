@@ -389,7 +389,16 @@ El _input file_ es el output del paso anterior, osea ya filtrado el linkage, en 
 Los archivos .ped y .map que se obtienen de lo anterior se deben convertir a archivos de structure (.str). Esto se hace con el programa PGDSpider...  
 Por alguna razón, el archivo .str obtenido asigna una población diferente a cada individuo, en lugar de asignarles las poblaciones del archivo popmap. El archivo se ve así:  
 
+![ArchivoStr_SinModf](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/Screen_Shot_Str1.png)
+
 Para solucionar esto se puede modificar el archivo con grep en TextWrangler de la siguiente manera:
+
+![GrepTW2](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/Screen_Shot_Grep2_Str.png)
+
+El archivo modificado se debería ver así:  
+
+![ArchivoStr_Modf](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/Screen_Shot_Str2.png)
+
 
 
 
