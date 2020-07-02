@@ -1,6 +1,6 @@
 #Git Hub  
 
-Para empezar a modificar un archivo de Marcdown hay que ir primero al directorio donde esta la carpeta ligada al git. En nuestro caso la carpeta se llama **InvertGenomics**, entonces el código sería:
+Para subir archivos, códigos, figuras al GitHub se utiliza el terminal. Los archivos se pueden crear y editar con el programa Marcdown. Para empezar a modificar un archivo de Marcdown hay que ir primero al directorio donde esta la carpeta ligada al git. En nuestro caso la carpeta se llama **InvertGenomics**, entonces el código en el terminal sería:
 
 `cd /Users/Vero/Documents/BaseSpace/JA18493-109360251/ddRadMacros/InvertGenomics`
 
