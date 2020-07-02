@@ -46,6 +46,11 @@ Click [here](http://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
 26828541 retained reads (98.9%)
 
 **Pool 2:**  
+Total Sequences 29801616
+Barcode Not Found 95236.
+Low Quality 36857.
+RAD Cutsite Not Found 216842.
+Retained Reads 29452681
 
 **Pool 3:**  
 20637354 total sequences  
@@ -62,6 +67,11 @@ Click [here](http://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
 26439951 retained reads (98.9%)    
 
 **Pool 5:**  
+Total Sequences 29332378.
+Barcode Not Found 103512.
+Low Quality 34778.
+RAD Cutsite Not Found 177205.
+Retained Reads 29016883
 
 **Pool 6:**  
 24683186 total sequences  
@@ -71,8 +81,18 @@ Click [here](http://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
 24422396 retained reads (98.9%)  
 
 **Pool 7:**  
+Total Sequences 29365106.
+Barcode Not Found 111598.
+Low Quality 36271.
+RAD Cutsite Not Found 169717.
+Retained Reads 29047520.
 
 **Pool 8:**  
+Total Sequences 24115006.
+Barcode Not Found 91558.
+Low Quality 29237.
+RAD Cutsite Not Found 167554.
+Retained Reads 23826657
 
 **IMPORTANT NOTES:**  
 If error: "(filenames can consist of letters, numbers, '.', '-' and '_')", there are probably errors in the barcode file (i.e. extra spaces or unwanted simbols).  
@@ -82,9 +102,10 @@ If error: "(filenames can consist of letters, numbers, '.', '-' and '_')", there
 
 
 ## 2. _de novo_ mapping  
+Esta serie de pasos sirve para filtrar los datos con stacks y generar al final la matriz de SNPs de acuerdo a los parámetros -m, -M y -N (ver abajo).
 
 ###Primer paso: ordenar los archivos
-Depues del **demulpitplexing**, y antes del _de novo_ mapping, se agrupa el contenido de los _Pools_ en una carpeta por cada taxón.
+Depués del **demulpitplexing**, y antes del _de novo_ mapping, se agrupa el contenido de los _Pools_ en una carpeta por cada taxón.
 
 Para crear directorios se usa la función **mkdir**, pero antes se debe cambiar el directorio al lugar donde queremos crear la nueva carpeta.
 
@@ -121,6 +142,8 @@ NOTA: ¡¡¡Cuidar que los mismos sitios tengan el mismo nombre!!!
 > Algunos bichos dicen "Purg" y otros "Pur"
 > Se puede corregir esto con un grep:
 > ... insert image
+
+NOTA2: solo debe haber una fila por individuo, incluso si se van a analizar las dos repeticiones (R1 y R2)
 
 ###Tercer paso: denovo sequencing
 
@@ -336,7 +359,7 @@ ______________________________________
 
 **Con geno = 0.3 (SNPs que estan en, por lo menos, el 70% de los individuos), mind = 0.5 y maf = 0.01**
 
-> Resultados a:  
+> Resultados **a**:  
 > * After frequency and genotyping pruning, there are 6244 SNPs
 
 > Resultados **b**:   
@@ -398,7 +421,6 @@ Para solucionar esto se puede modificar el archivo con grep en TextWrangler de l
 El archivo modificado se debería ver así:  
 
 ![ArchivoStr_Modf](https://github.com/verocrespoperez/InvertGenomics/blob/master/Fotos/Screen_Shot_Str2.png)
-
 
 
 
