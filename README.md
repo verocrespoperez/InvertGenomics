@@ -45,12 +45,12 @@ Click [here](http://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
   190903 RAD cutsite not found drops (0.7%)  
 26828541 retained reads (98.9%)
 
-**Pool 2:**  
-Total Sequences 29801616
-Barcode Not Found 95236.
-Low Quality 36857.
-RAD Cutsite Not Found 216842.
-Retained Reads 29452681
+**Pool 2:**  (Redro)  
+29801616 total sequences  
+   95236 barcode not found drops (??)  
+   36857 low quality read drops (??)  
+  216842 RAD cutsite not found drops (??)  
+29452681 retained reads (??)
 
 **Pool 3:**  
 20637354 total sequences  
@@ -66,12 +66,12 @@ Retained Reads 29452681
   183589 RAD cutsite not found drops (0.7%)  
 26439951 retained reads (98.9%)    
 
-**Pool 5:**  
-Total Sequences 29332378.
-Barcode Not Found 103512.
-Low Quality 34778.
-RAD Cutsite Not Found 177205.
-Retained Reads 29016883
+**Pool 5:**  (Redro)  
+29332378 total sequences  
+   103512 barcode not found drops (??)  
+   34778 low quality read drops (??)  
+  177205 RAD cutsite not found drops (??)  
+29016883 retained reads (??) 
 
 **Pool 6:**  
 24683186 total sequences  
@@ -80,19 +80,19 @@ Retained Reads 29016883
   144436 RAD cutsite not found drops (0.6%)  
 24422396 retained reads (98.9%)  
 
-**Pool 7:**  
-Total Sequences 29365106.
-Barcode Not Found 111598.
-Low Quality 36271.
-RAD Cutsite Not Found 169717.
-Retained Reads 29047520.
+**Pool 7:**  (Redro)  
+29365106 total sequences  
+   111598 barcode not found drops (??)  
+   36271 low quality read drops (??)  
+  169717 RAD cutsite not found drops (??)  
+29047520 retained reads (??) 
 
-**Pool 8:**  
-Total Sequences 24115006.
-Barcode Not Found 91558.
-Low Quality 29237.
-RAD Cutsite Not Found 167554.
-Retained Reads 23826657
+**Pool 8:**  (Redro)  
+24115006 total sequences  
+   91558 barcode not found drops (??)  
+   29237 low quality read drops (??)  
+  167554 RAD cutsite not found drops (??)  
+23826657 retained reads (??) 
 
 **IMPORTANT NOTES:**  
 If error: "(filenames can consist of letters, numbers, '.', '-' and '_')", there are probably errors in the barcode file (i.e. extra spaces or unwanted simbols).  
